@@ -1,0 +1,26 @@
+{
+  "name": "@hexlet/code",
+  "version": "0.0.1",
+  "description": "Compares two configuration files and shows a difference.",
+  "main": "index.js",
+  "type": "module",
+  "bin": {
+    "genDiff": "bin/genDiff.js" 
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dnk530/frontend-project-lvl2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dnk530/frontend-project-lvl2/issues"
+  },
+  "homepage": "https://github.com/dnk530/frontend-project-lvl2#readme",
+  "dependencies": {
+    "commander": "^8.3.0"
+  }
+}
