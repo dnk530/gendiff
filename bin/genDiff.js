@@ -7,6 +7,9 @@ const program = new Command();
 program
   .description(packageConfig.description)
   .version(packageConfig.version)
+  .option('-f, --format [type]', 'output format')
+  .argument('<filepath1>')
+  .argument('<filepath2>')
 program.parse();
 
 genDiff();
