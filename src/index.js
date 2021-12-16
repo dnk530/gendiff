@@ -1,11 +1,7 @@
 import _ from 'lodash';
 
 export default (file1, file2) => {
-  console.log(file1);
-  console.log(file2);
-
   const keys = _.sortBy(_.uniq([...Object.keys(file1), ...Object.keys(file2)]));
-  console.log(keys);
 
   const result = keys.map(key => {
     if (_.has(file1, key) && _.has(file2, key)) {
