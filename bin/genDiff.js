@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-import genDiff from '../src/index.js'
-import { Command } from 'commander/esm.mjs';
-import path from 'path';
 import { readFileSync } from 'fs';
+import path from 'path';
+import { Command } from 'commander/esm.mjs';
+import genDiff from '../src/index.js';
 
-const packageConfig = JSON.parse(readFileSync(path.resolve('./package.json')))
+const packageConfig = JSON.parse(readFileSync(path.resolve('./package.json')));
 
 const program = new Command();
 program
@@ -18,6 +18,6 @@ program
     const absPath2 = path.resolve(filepath2);
     const file1 = JSON.parse(readFileSync(absPath1, 'UTF-8'));
     const file2 = JSON.parse(readFileSync(absPath2, 'UTF-8'));
-    genDiff(file1, file2)
-  })
+    genDiff(file1, file2);
+  });
 program.parse();
