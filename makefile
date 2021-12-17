@@ -7,8 +7,11 @@ genDiff:
 publish:
 	npm publish --dry-run
 
-make lint:
+lint:
 	npx eslint .
 
-make test:
+test:
 	npm test
+
+test-coverage:
+	npm test -- --coverage --coverageProvider=v8

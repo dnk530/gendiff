@@ -21,6 +21,5 @@ export default (file1, file2) => {
   });
 
   const result = (['{', ...diff, '}'].join('\n'));
-  console.log(result);
   return result;
 };
