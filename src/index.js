@@ -3,7 +3,7 @@ import _ from 'lodash';
 export default (file1, file2) => {
   const keys = _.sortBy(_.uniq([...Object.keys(file1), ...Object.keys(file2)]));
 
-  const result = keys.map((key) => {
+  const diff = keys.map((key) => {
     const value1 = file1[key];
     const value2 = file2[key];
     if (!_.has(file1, key)) {
@@ -20,7 +20,7 @@ export default (file1, file2) => {
     );
   });
 
-  console.log(['{', ...result, '}'].join('\n'));
-
+  const result = (['{', ...diff, '}'].join('\n'));
+  console.log(result);
   return result;
 };
