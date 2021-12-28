@@ -26,7 +26,7 @@ export default (filepath1, filepath2) => {
         if (value1 === value2) {
           return { type: 'unmodified', name: key, value: value1 };
         }
-        if (typeof value1 === 'object') {
+        if (typeof value1 === 'object' && typeof value2 === 'object') {
           return { type: 'object', name: key, value: (iter(value1, value2)) };
         }
         return {
@@ -41,14 +41,14 @@ export default (filepath1, filepath2) => {
     return { value: iter(a, b) };
   };
 
-  console.log(JSON.stringify(diff(object1, object2), null, 4));
+  // console.log(JSON.stringify(diff(object1, object2), null, 4));
 
   const format = (obj, depth = 1) => {
     const data = obj.value;
     const INDENT = '  ';
     const currentIndent = INDENT.repeat(depth);
     const bracketIndent = INDENT.repeat(depth - 1);
-
+    console.log(data);
     const lines = data.flatMap((item) => {
       const { type, name: key, value } = item;
       let sign = ' ';
