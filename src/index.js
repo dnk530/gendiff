@@ -11,23 +11,18 @@ export default (filepath1, filepath2) => {
       const children = keys.flatMap((key) => {
         const value1 = obj1[key];
         const value2 = obj2[key];
-        const hasChildren = (node) => typeof node === 'object' && node !== null;
-        const getChildren = (node) => ({
-          type: 'object',
-          value: Object.entries(node).map(([name, value]) => ({ type: 'unmodified', name, value: hasChildren(value) ? getChildren(value) : value })),
-        });
 
         if (!_.has(obj1, key)) {
-          return { type: 'added', name: key, value: hasChildren(value2) ? getChildren(value2) : value2 };
+          return { type: 'added', name: key, value: value2 };
         }
         if (!_.has(obj2, key)) {
-          return { type: 'deleted', name: key, value: hasChildren(value1) ? getChildren(value1) : value1 };
+          return { type: 'deleted', name: key, value: value1 };
         }
         if (value1 === value2) {
           return { type: 'unmodified', name: key, value: value1 };
         }
         if (typeof value1 === 'object' && typeof value2 === 'object') {
-          return { type: 'object', name: key, value: (iter(value1, value2)) };
+          return { type: 'object', name: key, children: (iter(value1, value2)) };
         }
         return {
           type: 'modified',
@@ -38,50 +33,53 @@ export default (filepath1, filepath2) => {
       });
       return children;
     };
-    return { value: iter(a, b) };
+    return iter(a, b);
   };
 
-  // console.log(JSON.stringify(diff(object1, object2), null, 4));
-
-  const format = (obj, depth = 1) => {
-    const data = obj.value;
+  const format = (data, depth = 1) => {
     const INDENT = '  ';
     const currentIndent = INDENT.repeat(depth);
     const bracketIndent = INDENT.repeat(depth - 1);
-    console.log(data);
     const lines = data.flatMap((item) => {
       const { type, name: key, value } = item;
-      let sign = ' ';
+
+      const formatValue = (v, innerDepth = depth) => {
+        if (typeof v === 'object' && v !== null) {
+          const innerIndent = INDENT.repeat(innerDepth + 3);
+          const innerBracketIndent = INDENT.repeat(innerDepth + 1);
+          const innerLines = Object
+            .entries(v)
+            .map(([innerKey, innerValue]) => {
+              if (typeof innerValue === 'object' && innerValue !== null) {
+                return `${innerIndent}${innerKey}: ${formatValue(innerValue, innerDepth + 2)}`;
+              }
+              return `${innerIndent}${innerKey}: ${innerValue}`;
+            });
+          return `{\n${innerLines.join('\n')}\n${innerBracketIndent}}`;
+        }
+        return v;
+      };
+
       switch (type) {
         case 'added':
-          sign = '+';
-          break;
+          return `${currentIndent}+ ${key}: ${formatValue(value)}`;
         case 'deleted':
-          sign = '-';
-          break;
-        case 'nested':
-          sign = ' ';
-          break;
+          return `${currentIndent}- ${key}: ${formatValue(value)}`;
+        case 'unmodified':
+          return `${currentIndent}  ${key}: ${formatValue(value)}`;
+        case 'modified':
+          return [
+            `${currentIndent}- ${key}: ${formatValue(item.oldValue)}`,
+            `${currentIndent}+ ${key}: ${formatValue(item.newValue)}`,
+          ];
+        case 'object':
+          return `${currentIndent}  ${key}: ${format(item.children, depth + 2)}`;
         default:
-          sign = ' ';
+          return [];
       }
-
-      if (typeof value === 'object' && value !== null) {
-        // console.log(JSON.stringify(item, null, 4));
-        return `${currentIndent}${sign} ${key}: ${format(item, depth + 2)}`;
-      }
-      if (type === 'modified') {
-        return [
-          `${currentIndent}- ${key}: ${item.oldValue}`,
-          `${currentIndent}+ ${key}: ${item.newValue}`,
-        ];
-      }
-
-      return `${currentIndent}${sign} ${key}: ${value}`;
     });
     return ['{', ...lines, `${bracketIndent}}`].join('\n');
   };
   const result = format(diff(object1, object2));
-
   return result;
 };
