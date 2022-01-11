@@ -12,7 +12,7 @@ const output = fs.readFileSync(getFixturePath('output.txt'), 'utf-8');
 
 test('gendiff nested json', () => {
   const filepath1 = getFixturePath('file1.json');
-  const filepath2 = getFixturePath('file2.json');
+  const filepath2 = getFixturePath('file2');
   expect(genDiff(filepath1, filepath2)).toEqual(output);
 });
 
