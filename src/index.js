@@ -2,7 +2,7 @@ import _ from 'lodash';
 import parse from './parsers.js';
 import format from './formatters/index.js';
 
-export default (filepath1, filepath2, formatter = 'stylish') => {
+export default (filepath1, filepath2, formatName = 'stylish') => {
   const object1 = parse(filepath1);
   const object2 = parse(filepath2);
 
@@ -37,6 +37,6 @@ export default (filepath1, filepath2, formatter = 'stylish') => {
     return iter(a, b);
   };
   const ast = diff(object1, object2);
-  const result = format(ast, formatter);
+  const result = format(ast, formatName);
   return result;
 };
