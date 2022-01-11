@@ -1,6 +1,6 @@
+import _ from 'lodash';
 import formatStylish from './stylish.js';
 import formatPlain from './plain.js';
-import _ from 'lodash';
 
 export default (ast, formatName) => {
   const mapping = {
