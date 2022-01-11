@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import parse from './parsers.js';
-import format from './formatters.js';
+import format from './formatters/index.js';
 
 export default (filepath1, filepath2, formatter = 'stylish') => {
   const object1 = parse(filepath1);
