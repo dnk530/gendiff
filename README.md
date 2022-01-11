@@ -5,6 +5,4 @@
 
 ## Demo
 
-[![asciicast](https://asciinema.org/a/T4rJUC83vhvugnW95ysivH1bE.svg)](https://asciinema.org/a/T4rJUC83vhvugnW95ysivH1bE)
-
-[![asciicast](https://asciinema.org/a/7rOrEAmbyHpXxFKOOqmCRilOC.svg)](https://asciinema.org/a/7rOrEAmbyHpXxFKOOqmCRilOC)
+[![asciicast](https://asciinema.org/a/CjiMLbHfYbiGppXp3WHlcuRDv.svg)](https://asciinema.org/a/CjiMLbHfYbiGppXp3WHlcuRDv)
