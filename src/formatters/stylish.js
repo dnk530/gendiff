@@ -37,7 +37,7 @@ const format = (data, depth = 1) => {
       case 'object':
         return `${currentIndent}  ${key}: ${format(item.children, depth + 2)}`;
       default:
-        return [];
+        throw new Error(`Unknown node type ${type}`);
     }
   });
   return ['{', ...lines, `${bracketIndent}}`].join('\n');

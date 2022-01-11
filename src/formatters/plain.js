@@ -20,8 +20,10 @@ const format = (data, path = '') => {
         return `Property '${path}${name}' was updated. From ${formatValue(item.oldValue)} to ${formatValue(item.newValue)}`;
       case 'object':
         return format(children, `${path}${name}.`);
-      default:
+      case 'unmodified':
         return [];
+      default:
+        throw new Error(`Unknown node type ${type}`);
     }
   });
   return lines.join('\n');
