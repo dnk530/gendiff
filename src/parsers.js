@@ -1,6 +1,7 @@
 import { readFileSync } from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';
+import _ from 'lodash';
 
 export default (filepath) => {
   const file = readFileSync(filepath, 'UTF-8');
@@ -11,5 +12,8 @@ export default (filepath) => {
     '.yaml': yaml.load,
     '.yml': yaml.load,
   };
+  if (!_.has(mapping, extension)) {
+    throw new Error(`Unknown file format: '${extension}'`);
+  }
   return mapping[extension](file);
 };
