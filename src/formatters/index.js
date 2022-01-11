@@ -5,6 +5,7 @@ export default (ast, formatName) => {
   const mapping = {
     stylish: formatStylish,
     plain: formatPlain,
+    json: JSON.stringify,
   };
 
   return mapping[formatName](ast);

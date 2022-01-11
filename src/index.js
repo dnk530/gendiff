@@ -37,6 +37,7 @@ export default (filepath1, filepath2, formatName = 'stylish') => {
     return iter(a, b);
   };
   const ast = diff(object1, object2);
+  // console.log(JSON.stringify(ast, null, 4));
   const result = format(ast, formatName);
   return result;
 };
