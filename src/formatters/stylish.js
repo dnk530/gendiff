@@ -5,12 +5,12 @@ const format = (data, depth = 1) => {
   const lines = data.flatMap((item) => {
     const { type, name: key, value } = item;
 
-    const formatValue = (v, innerDepth = depth) => {
-      if (typeof v === 'object' && v !== null) {
+    const formatValue = (innerData, innerDepth = depth) => {
+      if (typeof innerData === 'object' && innerData !== null) {
         const innerIndent = INDENT.repeat(innerDepth + 3);
         const innerBracketIndent = INDENT.repeat(innerDepth + 1);
         const innerLines = Object
-          .entries(v)
+          .entries(innerData)
           .map(([innerKey, innerValue]) => {
             if (typeof innerValue === 'object' && innerValue !== null) {
               return `${innerIndent}${innerKey}: ${formatValue(innerValue, innerDepth + 2)}`;
@@ -19,7 +19,7 @@ const format = (data, depth = 1) => {
           });
         return `{\n${innerLines.join('\n')}\n${innerBracketIndent}}`;
       }
-      return v;
+      return innerData;
     };
 
     switch (type) {
