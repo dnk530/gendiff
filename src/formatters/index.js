@@ -9,7 +9,8 @@ export default (ast, formatName) => {
     json: JSON.stringify,
   };
   if (!_.has(mapping, formatName)) {
-    throw new Error(`Unknown format style: '${formatName}'`);
+    console.log(`Unknown format style: '${formatName}'`);
+    process.exit(1);
   }
   return mapping[formatName](ast);
 };

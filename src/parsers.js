@@ -13,7 +13,8 @@ export default (filepath) => {
     '.yml': yaml.load,
   };
   if (!_.has(mapping, extension)) {
-    throw new Error(`Unknown file format: '${extension}'`);
+    console.log(`Unknown file format: '${extension}'`);
+    process.exit(1);
   }
   return mapping[extension](file);
 };

@@ -3,10 +3,10 @@ import parse from './parsers.js';
 import format from './formatters/index.js';
 
 export default (filepath1, filepath2, formatName = 'stylish') => {
-  const object1 = parse(filepath1);
-  const object2 = parse(filepath2);
+  const config1 = parse(filepath1);
+  const config2 = parse(filepath2);
 
-  const diff = (a, b) => {
+  const buildAst = (a, b) => {
     const iter = (obj1, obj2) => {
       const keys = _.sortBy(_.uniq([...Object.keys(obj1), ...Object.keys(obj2)]));
       const children = keys.flatMap((key) => {
@@ -36,7 +36,7 @@ export default (filepath1, filepath2, formatName = 'stylish') => {
     };
     return iter(a, b);
   };
-  const ast = diff(object1, object2);
+  const ast = buildAst(config1, config2);
   const result = format(ast, formatName);
   return result;
 };
