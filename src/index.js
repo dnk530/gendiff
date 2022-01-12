@@ -6,36 +6,34 @@ export default (filepath1, filepath2, formatName = 'stylish') => {
   const config1 = parse(filepath1);
   const config2 = parse(filepath2);
 
-  const buildAst = (a, b) => {
-    const iter = (obj1, obj2) => {
-      const keys = _.sortBy(_.uniq([...Object.keys(obj1), ...Object.keys(obj2)]));
-      const children = keys.flatMap((key) => {
-        const value1 = obj1[key];
-        const value2 = obj2[key];
+  const buildAst = (obj1, obj2) => {
+    const keys = _.sortBy(_.uniq([...Object.keys(obj1), ...Object.keys(obj2)]));
+    const children = keys.flatMap((key) => {
+      const value1 = obj1[key];
+      const value2 = obj2[key];
 
-        if (!_.has(obj1, key)) {
-          return { type: 'added', name: key, value: value2 };
-        }
-        if (!_.has(obj2, key)) {
-          return { type: 'deleted', name: key, value: value1 };
-        }
-        if (value1 === value2) {
-          return { type: 'unmodified', name: key, value: value1 };
-        }
-        if (typeof value1 === 'object' && typeof value2 === 'object') {
-          return { type: 'object', name: key, children: (iter(value1, value2)) };
-        }
-        return {
-          type: 'modified',
-          name: key,
-          oldValue: value1,
-          newValue: value2,
-        };
-      });
-      return children;
-    };
-    return iter(a, b);
+      if (!_.has(obj1, key)) {
+        return { type: 'added', name: key, value: value2 };
+      }
+      if (!_.has(obj2, key)) {
+        return { type: 'deleted', name: key, value: value1 };
+      }
+      if (value1 === value2) {
+        return { type: 'unmodified', name: key, value: value1 };
+      }
+      if (typeof value1 === 'object' && typeof value2 === 'object') {
+        return { type: 'object', name: key, children: (buildAst(value1, value2)) };
+      }
+      return {
+        type: 'modified',
+        name: key,
+        oldValue: value1,
+        newValue: value2,
+      };
+    });
+    return children;
   };
+
   const ast = buildAst(config1, config2);
   const result = format(ast, formatName);
   return result;
