@@ -13,20 +13,20 @@ const formatAst = (ast, path = '') => {
 
   const lines = ast.flatMap((item) => {
     const {
-      type, name, value, children,
+      type,
+      name,
+      value,
+      children,
     } = item;
-    switch (type) {
-      case 'added':
-        return `Property '${path}${name}' was added with value: ${formatValue(value)}`;
-      case 'deleted':
-        return `Property '${path}${name}' was removed`;
-      case 'modified':
-        return `Property '${path}${name}' was updated. From ${formatValue(item.value1)} to ${formatValue(item.value2)}`;
-      case 'object':
-        return formatAst(children, `${path}${name}.`);
-      default:
-        return [];
-    }
+
+    const typeToLine = {
+      added: () => `Property '${path}${name}' was added with value: ${formatValue(value)}`,
+      deleted: () => `Property '${path}${name}' was removed`,
+      modified: () => `Property '${path}${name}' was updated. From ${formatValue(item.value1)} to ${formatValue(item.value2)}`,
+      unmodified: () => '',
+      object: () => { formatAst(children, `${path}${name}.`); },
+    };
+    return typeToLine[type]();
   });
   return lines.join('\n');
 };
