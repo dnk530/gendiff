@@ -1,4 +1,4 @@
-const format = (data, depth = 1) => {
+const formatAst = (data, depth = 1) => {
   const INDENT = '  ';
   const currentIndent = INDENT.repeat(depth);
   const bracketIndent = INDENT.repeat(depth - 1);
@@ -35,7 +35,7 @@ const format = (data, depth = 1) => {
           `${currentIndent}+ ${key}: ${formatValue(item.value2)}`,
         ];
       case 'object':
-        return `${currentIndent}  ${key}: ${format(item.children, depth + 2)}`;
+        return `${currentIndent}  ${key}: ${formatAst(item.children, depth + 2)}`;
       default:
         return [];
     }
@@ -43,4 +43,4 @@ const format = (data, depth = 1) => {
   return ['{', ...lines, `${bracketIndent}}`].join('\n');
 };
 
-export default format;
+export default formatAst;

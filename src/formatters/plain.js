@@ -1,9 +1,13 @@
 import _ from 'lodash';
 
-const format = (ast, path = '') => {
+const formatAst = (ast, path = '') => {
   const formatValue = (value) => {
-    if (_.isObject(value)) return '[complex value]';
-    if (typeof value === 'string') return `'${value}'`;
+    if (_.isObject(value)) {
+      return '[complex value]';
+    }
+    if (typeof value === 'string') {
+      return `'${value}'`;
+    }
     return value;
   };
 
@@ -19,7 +23,7 @@ const format = (ast, path = '') => {
       case 'modified':
         return `Property '${path}${name}' was updated. From ${formatValue(item.value1)} to ${formatValue(item.value2)}`;
       case 'object':
-        return format(children, `${path}${name}.`);
+        return formatAst(children, `${path}${name}.`);
       default:
         return [];
     }
@@ -27,4 +31,4 @@ const format = (ast, path = '') => {
   return lines.join('\n');
 };
 
-export default format;
+export default formatAst;
