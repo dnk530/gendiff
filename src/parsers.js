@@ -6,15 +6,15 @@ import _ from 'lodash';
 export default (filepath) => {
   const file = readFileSync(path.resolve(filepath), 'UTF-8');
   const extension = path.extname(filepath);
-  const mapping = {
+  const extensionToParser = {
     '.json': JSON.parse,
     '': JSON.parse,
     '.yaml': yaml.load,
     '.yml': yaml.load,
   };
-  if (!_.has(mapping, extension)) {
+  if (!_.has(extensionToParser, extension)) {
     console.log(`Unknown file format: '${extension}'`);
     process.exit(1);
   }
-  return mapping[extension](file);
+  return extensionToParser[extension](file);
 };
