@@ -4,7 +4,7 @@ import yaml from 'js-yaml';
 import _ from 'lodash';
 
 export default (filepath) => {
-  const file = readFileSync(path.resolve(filepath), 'UTF-8');
+  const file = readFileSync(path.resolve(filepath), 'utf8');
   const extension = path.extname(filepath);
   const extensionToParser = {
     '.json': JSON.parse,
