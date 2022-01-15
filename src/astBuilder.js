@@ -21,8 +21,8 @@ const buildAst = (obj1, obj2) => {
     return {
       type: 'modified',
       name: key,
-      oldValue: value1,
-      newValue: value2,
+      value1,
+      value2,
     };
   });
   return ast;

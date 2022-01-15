@@ -31,8 +31,8 @@ const format = (data, depth = 1) => {
         return `${currentIndent}  ${key}: ${formatValue(value)}`;
       case 'modified':
         return [
-          `${currentIndent}- ${key}: ${formatValue(item.oldValue)}`,
-          `${currentIndent}+ ${key}: ${formatValue(item.newValue)}`,
+          `${currentIndent}- ${key}: ${formatValue(item.value1)}`,
+          `${currentIndent}+ ${key}: ${formatValue(item.value2)}`,
         ];
       case 'object':
         return `${currentIndent}  ${key}: ${format(item.children, depth + 2)}`;

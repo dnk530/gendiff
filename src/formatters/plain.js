@@ -1,13 +1,13 @@
 import _ from 'lodash';
 
-const format = (data, path = '') => {
+const format = (ast, path = '') => {
   const formatValue = (value) => {
     if (_.isObject(value)) return '[complex value]';
     if (typeof value === 'string') return `'${value}'`;
     return value;
   };
 
-  const lines = data.flatMap((item) => {
+  const lines = ast.flatMap((item) => {
     const {
       type, name, value, children,
     } = item;
@@ -17,7 +17,7 @@ const format = (data, path = '') => {
       case 'deleted':
         return `Property '${path}${name}' was removed`;
       case 'modified':
-        return `Property '${path}${name}' was updated. From ${formatValue(item.oldValue)} to ${formatValue(item.newValue)}`;
+        return `Property '${path}${name}' was updated. From ${formatValue(item.value1)} to ${formatValue(item.value2)}`;
       case 'object':
         return format(children, `${path}${name}.`);
       default:
