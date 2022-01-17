@@ -5,16 +5,17 @@ import _ from 'lodash';
 
 export default (filepath) => {
   const file = readFileSync(path.resolve(filepath), 'utf8');
-  const extension = path.extname(filepath);
+  const extension = _.trimStart(path.extname(filepath), '.').toLowerCase();
+  if (extension.length === 0) {
+    return JSON.parse(file);
+  }
   const extensionToParser = {
-    '.json': JSON.parse,
-    '': JSON.parse,
-    '.yaml': yaml.load,
-    '.yml': yaml.load,
+    json: JSON.parse,
+    yaml: yaml.load,
+    yml: yaml.load,
   };
   if (!_.has(extensionToParser, extension)) {
-    console.log(`Unknown file format: '${extension}'`);
-    process.exit(1);
+    throw new Error(`Unknown file format: '${extension}'`);
   }
   return extensionToParser[extension](file);
 };
