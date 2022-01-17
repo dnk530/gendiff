@@ -9,8 +9,7 @@ export default (ast, formatName) => {
     json: JSON.stringify,
   };
   if (!_.has(formatNameToFormatter, formatName)) {
-    console.log(`Unknown format style: '${formatName}'`);
-    process.exit(1);
+    throw new Error(`Unknown format style: '${formatName}'`);
   }
   return formatNameToFormatter[formatName](ast);
 };
