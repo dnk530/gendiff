@@ -29,3 +29,11 @@ describe('Test formatters', () => {
     expect(genDiff(filepath1, filepath2, format)).toEqual(expected);
   });
 });
+
+describe('Error on unknown format', () => {
+  test('Invalid output format', () => {
+    expect(() => {
+      genDiff(JSON1, JSON2, 'pln');
+    }).toThrowError(new Error('Unknown format style: \'pln\''));
+  });
+});
