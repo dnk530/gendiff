@@ -9,13 +9,15 @@ const formatAst = (data, depth = 1) => {
 
     const formatValue = (innerData, innerDepth = depth) => {
       if (_.isPlainObject(innerData)) {
-        const innerIndent = INDENT.repeat(innerDepth + 3);
+        const INNER_DEPTH_INCREASE = 3;
+        const innerIndent = INDENT.repeat(innerDepth + INNER_DEPTH_INCREASE);
         const innerBracketIndent = INDENT.repeat(innerDepth + 1);
         const innerOutput = Object
           .entries(innerData)
           .map(([innerKey, innerValue]) => {
             if (_.isPlainObject(innerValue)) {
-              return `${innerIndent}${innerKey}: ${formatValue(innerValue, innerDepth + 2)}`;
+              const DEPTH_INCREASE = 2;
+              return `${innerIndent}${innerKey}: ${formatValue(innerValue, innerDepth + DEPTH_INCREASE)}`;
             }
             return `${innerIndent}${innerKey}: ${innerValue}`;
           });
@@ -32,7 +34,10 @@ const formatAst = (data, depth = 1) => {
         `${currentIndent}- ${key}: ${formatValue(item.value1)}`,
         `${currentIndent}+ ${key}: ${formatValue(item.value2)}`,
       ],
-      object: () => `${currentIndent}  ${key}: ${formatAst(item.children, depth + 2)}`,
+      object: () => {
+        const DEPTH_INCREASE = 2;
+        return `${currentIndent}  ${key}: ${formatAst(item.children, depth + DEPTH_INCREASE)}`;
+      },
     };
     return typeToOutput[type]();
   });
