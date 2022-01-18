@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 const formatAst = (ast, path = '') => {
   const formatValue = (value) => {
-    if (_.isObject(value)) {
+    if (_.isPlainObject(value)) {
       return '[complex value]';
     }
     if (typeof value === 'string') {
@@ -11,7 +11,7 @@ const formatAst = (ast, path = '') => {
     return value;
   };
 
-  const lines = ast.flatMap((item) => {
+  const output = ast.flatMap((item) => {
     const {
       type,
       name,
@@ -19,16 +19,16 @@ const formatAst = (ast, path = '') => {
       children,
     } = item;
 
-    const typeToLine = {
+    const typeToOutput = {
       added: () => `Property '${path}${name}' was added with value: ${formatValue(value)}`,
       deleted: () => `Property '${path}${name}' was removed`,
       modified: () => `Property '${path}${name}' was updated. From ${formatValue(item.value1)} to ${formatValue(item.value2)}`,
-      unmodified: () => '',
-      object: () => { formatAst(children, `${path}${name}.`); },
+      unmodified: () => [],
+      object: () => formatAst(children, `${path}${name}.`),
     };
-    return typeToLine[type]();
+    return typeToOutput[type]();
   });
-  return lines.join('\n');
+  return output.join('\n');
 };
 
 export default formatAst;
