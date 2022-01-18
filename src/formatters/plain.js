@@ -11,7 +11,7 @@ const formatAst = (ast, path = '') => {
     return value;
   };
 
-  const lines = ast.flatMap((item) => {
+  const output = ast.flatMap((item) => {
     const {
       type, name, value, children,
     } = item;
@@ -28,7 +28,7 @@ const formatAst = (ast, path = '') => {
         return [];
     }
   });
-  return lines.join('\n');
+  return output.join('\n');
 };
 
 export default formatAst;

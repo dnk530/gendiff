@@ -4,14 +4,14 @@ const formatAst = (data, depth = 1) => {
   const INDENT = '  ';
   const currentIndent = INDENT.repeat(depth);
   const bracketIndent = INDENT.repeat(depth - 1);
-  const lines = data.flatMap((item) => {
+  const output = data.flatMap((item) => {
     const { type, name: key, value } = item;
 
     const formatValue = (innerData, innerDepth = depth) => {
       if (_.isPlainObject(innerData)) {
         const innerIndent = INDENT.repeat(innerDepth + 3);
         const innerBracketIndent = INDENT.repeat(innerDepth + 1);
-        const innerLines = Object
+        const innerOutput = Object
           .entries(innerData)
           .map(([innerKey, innerValue]) => {
             if (_.isPlainObject(innerValue)) {
@@ -19,7 +19,7 @@ const formatAst = (data, depth = 1) => {
             }
             return `${innerIndent}${innerKey}: ${innerValue}`;
           });
-        return `{\n${innerLines.join('\n')}\n${innerBracketIndent}}`;
+        return `{\n${innerOutput.join('\n')}\n${innerBracketIndent}}`;
       }
       return innerData;
     };
@@ -42,7 +42,7 @@ const formatAst = (data, depth = 1) => {
         return [];
     }
   });
-  return ['{', ...lines, `${bracketIndent}}`].join('\n');
+  return ['{', ...output, `${bracketIndent}}`].join('\n');
 };
 
 export default formatAst;
