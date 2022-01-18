@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 const formatAst = (data, depth = 1) => {
   const INDENT = '  ';
   const currentIndent = INDENT.repeat(depth);
@@ -6,13 +8,13 @@ const formatAst = (data, depth = 1) => {
     const { type, name: key, value } = item;
 
     const formatValue = (innerData, innerDepth = depth) => {
-      if (typeof innerData === 'object' && innerData !== null) {
+      if (_.isPlainObject(innerData)) {
         const innerIndent = INDENT.repeat(innerDepth + 3);
         const innerBracketIndent = INDENT.repeat(innerDepth + 1);
         const innerLines = Object
           .entries(innerData)
           .map(([innerKey, innerValue]) => {
-            if (typeof innerValue === 'object' && innerValue !== null) {
+            if (_.isPlainObject(innerValue)) {
               return `${innerIndent}${innerKey}: ${formatValue(innerValue, innerDepth + 2)}`;
             }
             return `${innerIndent}${innerKey}: ${innerValue}`;
