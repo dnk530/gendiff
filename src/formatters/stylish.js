@@ -24,23 +24,17 @@ const formatAst = (data, depth = 1) => {
       return innerData;
     };
 
-    switch (type) {
-      case 'added':
-        return `${currentIndent}+ ${key}: ${formatValue(value)}`;
-      case 'deleted':
-        return `${currentIndent}- ${key}: ${formatValue(value)}`;
-      case 'unmodified':
-        return `${currentIndent}  ${key}: ${formatValue(value)}`;
-      case 'modified':
-        return [
-          `${currentIndent}- ${key}: ${formatValue(item.value1)}`,
-          `${currentIndent}+ ${key}: ${formatValue(item.value2)}`,
-        ];
-      case 'object':
-        return `${currentIndent}  ${key}: ${formatAst(item.children, depth + 2)}`;
-      default:
-        return [];
-    }
+    const typeToOutput = {
+      added: () => `${currentIndent}+ ${key}: ${formatValue(value)}`,
+      deleted: () => `${currentIndent}- ${key}: ${formatValue(value)}`,
+      unmodified: () => `${currentIndent}  ${key}: ${formatValue(value)}`,
+      modified: () => [
+        `${currentIndent}- ${key}: ${formatValue(item.value1)}`,
+        `${currentIndent}+ ${key}: ${formatValue(item.value2)}`,
+      ],
+      object: () => `${currentIndent}  ${key}: ${formatAst(item.children, depth + 2)}`,
+    };
+    return typeToOutput[type]();
   });
   return ['{', ...output, `${bracketIndent}}`].join('\n');
 };
