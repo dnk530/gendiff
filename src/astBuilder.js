@@ -16,7 +16,7 @@ const buildAst = (obj1, obj2) => {
       return { type: 'unmodified', name: key, value: value1 };
     }
     if (_.isPlainObject(value1) && _.isPlainObject(value2)) {
-      return { type: 'object', name: key, children: (buildAst(value1, value2)) };
+      return { type: 'object', name: key, children: buildAst(value1, value2) };
     }
     return {
       type: 'modified',
