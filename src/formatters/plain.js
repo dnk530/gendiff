@@ -31,4 +31,4 @@ const formatAst = (ast, path = '') => {
   return output.join('\n');
 };
 
-export default formatAst;
+export default (data) => formatAst(data);

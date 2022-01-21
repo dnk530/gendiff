@@ -44,4 +44,4 @@ const formatAst = (data, depth = 1) => {
   return ['{', ...output, `${bracketIndent}}`].join('\n');
 };
 
-export default formatAst;
+export default (data) => formatAst(data);
