@@ -1,8 +1,8 @@
-import has from 'lodash/has';
-import isPlainObject from 'lodash/isPlainObject';
-import sortBy from 'lodash/sortBy';
-import union from 'lodash/union';
-import isEqual from 'lodash/isEqual';
+import has from 'lodash/has.js';
+import isPlainObject from 'lodash/isPlainObject.js';
+import sortBy from 'lodash/sortBy.js';
+import union from 'lodash/union.js';
+import isEqual from 'lodash/isEqual.js';
 
 const buildAst = (obj1, obj2) => {
   const keys = sortBy(union(Object.keys(obj1), Object.keys(obj2)));

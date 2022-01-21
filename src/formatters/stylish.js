@@ -1,4 +1,4 @@
-import isPlainObject from 'lodash/isPlainObject';
+import isPlainObject from 'lodash/isPlainObject.js';
 
 const formatAst = (data, depth = 1) => {
   const INDENT = '  ';

@@ -1,4 +1,4 @@
-import has from 'lodash/has';
+import has from 'lodash/has.js';
 import formatStylish from './stylish.js';
 import formatPlain from './plain.js';
 

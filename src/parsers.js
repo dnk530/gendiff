@@ -1,8 +1,8 @@
 import { readFileSync } from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';
-import trimStart from 'lodash/trimStart';
-import has from 'lodash/has';
+import trimStart from 'lodash/trimStart.js';
+import has from 'lodash/has.js';
 
 export default (filepath) => {
   const file = readFileSync(path.resolve(filepath), 'utf8');
