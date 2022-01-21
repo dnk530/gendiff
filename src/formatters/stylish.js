@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import isPlainObject from 'lodash/isPlainObject';
 
 const formatAst = (data, depth = 1) => {
   const INDENT = '  ';
@@ -8,14 +8,14 @@ const formatAst = (data, depth = 1) => {
     const { type, name: key, value } = item;
 
     const formatValue = (innerData, innerDepth = depth) => {
-      if (_.isPlainObject(innerData)) {
+      if (isPlainObject(innerData)) {
         const INNER_DEPTH_INCREASE = 3;
         const innerIndent = INDENT.repeat(innerDepth + INNER_DEPTH_INCREASE);
         const innerBracketIndent = INDENT.repeat(innerDepth + 1);
         const innerOutput = Object
           .entries(innerData)
           .map(([innerKey, innerValue]) => {
-            if (_.isPlainObject(innerValue)) {
+            if (isPlainObject(innerValue)) {
               const DEPTH_INCREASE = 2;
               return `${innerIndent}${innerKey}: ${formatValue(innerValue, innerDepth + DEPTH_INCREASE)}`;
             }

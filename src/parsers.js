@@ -1,11 +1,12 @@
 import { readFileSync } from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';
-import _ from 'lodash';
+import trimStart from 'lodash/trimStart';
+import has from 'lodash/has';
 
 export default (filepath) => {
   const file = readFileSync(path.resolve(filepath), 'utf8');
-  const extension = _.trimStart(path.extname(filepath), '.').toLowerCase();
+  const extension = trimStart(path.extname(filepath), '.').toLowerCase();
   if (extension.length === 0) {
     return JSON.parse(file);
   }
@@ -14,7 +15,7 @@ export default (filepath) => {
     yaml: yaml.load,
     yml: yaml.load,
   };
-  if (!_.has(extensionToParser, extension)) {
+  if (!has(extensionToParser, extension)) {
     throw new Error(`Unknown file format: '${extension}'`);
   }
   return extensionToParser[extension](file);

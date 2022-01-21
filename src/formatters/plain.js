@@ -1,8 +1,8 @@
-import _ from 'lodash';
+import isPlainObject from 'lodash/isPlainObject';
 
 const formatAst = (ast, path = '') => {
   const formatValue = (value) => {
-    if (_.isPlainObject(value)) {
+    if (isPlainObject(value)) {
       return '[complex value]';
     }
     if (typeof value === 'string') {

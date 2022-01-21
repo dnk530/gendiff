@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import has from 'lodash/has';
 import formatStylish from './stylish.js';
 import formatPlain from './plain.js';
 
@@ -8,7 +8,7 @@ export default (ast, formatName) => {
     plain: formatPlain,
     json: JSON.stringify,
   };
-  if (!_.has(formatNameToFormatter, formatName)) {
+  if (!has(formatNameToFormatter, formatName)) {
     throw new Error(`Unknown format style: '${formatName}'`);
   }
   return formatNameToFormatter[formatName](ast);
