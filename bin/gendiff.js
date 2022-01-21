@@ -9,8 +9,8 @@ import genDiff from '../src/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const getConfigPath = () => path.join(__dirname, '..', './package.json');
-const packageConfig = JSON.parse(readFileSync(path.resolve(getConfigPath())));
+const configPath = path.resolve(path.join(__dirname, '..', './package.json'));
+const packageConfig = JSON.parse(readFileSync(configPath));
 
 const program = new Command();
 program
