@@ -2,6 +2,7 @@ import has from 'lodash/has';
 import isPlainObject from 'lodash/isPlainObject';
 import sortBy from 'lodash/sortBy';
 import union from 'lodash/union';
+import isEqual from 'lodash/isEqual';
 
 const buildAst = (obj1, obj2) => {
   const keys = sortBy(union(Object.keys(obj1), Object.keys(obj2)));
@@ -15,7 +16,7 @@ const buildAst = (obj1, obj2) => {
     if (!has(obj2, key)) {
       return { type: 'deleted', name: key, value: value1 };
     }
-    if (value1 === value2) {
+    if (isEqual(value1, value2)) {
       return { type: 'unmodified', name: key, value: value1 };
     }
     if (isPlainObject(value1) && isPlainObject(value2)) {
