@@ -4,6 +4,37 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/6b1eb089510fee028b48/maintainability)](https://codeclimate.com/github/dnk530/frontend-project-lvl2/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/6b1eb089510fee028b48/test_coverage)](https://codeclimate.com/github/dnk530/frontend-project-lvl2/test_coverage)
 
-## Demo
+Gendiff compares two configuration files (JSON or YAML) and shows a difference.
 
-[![asciicast](https://asciinema.org/a/CjiMLbHfYbiGppXp3WHlcuRDv.svg)](https://asciinema.org/a/CjiMLbHfYbiGppXp3WHlcuRDv)
+## Installation
+
+```bash
+make install
+```
+
+## Help
+
+For help use `gendiff -h`. Demo:
+
+[![asciicast](https://asciinema.org/a/GDmQCHPHZw8P0urDScowPIOn9.svg)](https://asciinema.org/a/GDmQCHPHZw8P0urDScowPIOn9)
+
+## Usage
+
+```bash
+gendiff [options] <filepath1> <filepath2>
+```
+[![asciicast](https://asciinema.org/a/Gh6iieXdFWlQKizkXmSTeGgZg.svg)](https://asciinema.org/a/Gh6iieXdFWlQKizkXmSTeGgZg)
+
+## Options demo
+There are three formatting options for output  `-f [type]` or `--format [type]`: 
+- `stylish` (default)
+
+[![asciicast](https://asciinema.org/a/VywaVEWYXL61hg7a5VOCnTFje.svg)](https://asciinema.org/a/VywaVEWYXL61hg7a5VOCnTFje)
+
+- `plain`
+
+[![asciicast](https://asciinema.org/a/MGQKziRn4UK51h1kWxF9fwkov.svg)](https://asciinema.org/a/MGQKziRn4UK51h1kWxF9fwkov)
+
+- `json`
+
+[![asciicast](https://asciinema.org/a/k3ruLl7KJ32A4NVRrsBwidDTz.svg)](https://asciinema.org/a/k3ruLl7KJ32A4NVRrsBwidDTz)
