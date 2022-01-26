@@ -1,16 +1,16 @@
 import isPlainObject from 'lodash/isPlainObject.js';
 
-const formatAst = (ast, path = '') => {
-  const formatValue = (value) => {
-    if (isPlainObject(value)) {
-      return '[complex value]';
-    }
-    if (typeof value === 'string') {
-      return `'${value}'`;
-    }
-    return value;
-  };
+const formatValue = (value) => {
+  if (isPlainObject(value)) {
+    return '[complex value]';
+  }
+  if (typeof value === 'string') {
+    return `'${value}'`;
+  }
+  return value;
+};
 
+const formatAst = (ast, path = '') => {
   const output = ast.flatMap((item) => {
     const {
       type,
