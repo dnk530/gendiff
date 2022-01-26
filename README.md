@@ -6,6 +6,10 @@
 
 Gendiff compares two configuration files (JSON or YAML) and shows a difference.
 
+## Requirements
+
+Node v16+
+
 ## Installation
 
 ```bash
