@@ -15,16 +15,14 @@ const formatAst = (ast, path = '') => {
     const {
       type,
       name,
-      value,
-      children,
     } = item;
 
     const typeToOutput = {
-      added: () => `Property '${path}${name}' was added with value: ${formatValue(value)}`,
+      added: () => `Property '${path}${name}' was added with value: ${formatValue(item.value)}`,
       deleted: () => `Property '${path}${name}' was removed`,
       modified: () => `Property '${path}${name}' was updated. From ${formatValue(item.value1)} to ${formatValue(item.value2)}`,
       unmodified: () => [],
-      object: () => formatAst(children, `${path}${name}.`),
+      object: () => formatAst(item.children, `${path}${name}.`),
     };
     return typeToOutput[type]();
   });
